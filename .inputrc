@@ -1,0 +1,137 @@
+# To the extent possible under law, the author(s) have dedicated all 
+# copyright and related and neighboring rights to this software to the 
+# public domain worldwide. This software is distributed without any warranty. 
+# You should have received a copy of the CC0 Public Domain Dedication along 
+# with this software. 
+# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+
+# base-files version 4.2-3
+
+# ~/.inputrc: readline initialization file.
+
+# The latest version as installed by the Cygwin Setup program can
+# always be found at /etc/defaults/etc/skel/.inputrc
+
+# Modifying /etc/skel/.inputrc directly will prevent
+# setup from updating it.
+
+# The copy in your home directory (~/.inputrc) is yours, please
+# feel free to customise it to create a shell
+# environment to your liking.  If you feel a change
+# would be benifitial to all, please feel free to send
+# a patch to the cygwin mailing list.
+
+# the following line is actually
+# equivalent to "\C-?": delete-char
+"\e[3~": delete-char
+
+# VT
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# kvt
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+
+# rxvt and konsole (i.e. the KDE-app...)
+"\e[7~": beginning-of-line
+"\e[8~": end-of-line
+
+# VT220
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+# Allow 8-bit input/output
+#set meta-flag on
+#set convert-meta off
+#set input-meta on
+#set output-meta on
+#$if Bash
+  # Don't ring bell on completion
+  #set bell-style none
+
+  # or, don't beep at me - show me
+  #set bell-style visible
+
+  # Filename completion/expansion
+  #set completion-ignore-case on
+  #set show-all-if-ambiguous on
+
+  # Expand homedir name
+  #set expand-tilde on
+
+  # Append "/" to all dirnames
+  #set mark-directories on
+  #set mark-symlinked-directories on
+
+  # Match all files
+  #set match-hidden-files on
+
+  # 'Magic Space'
+  # Insert a space character then performs
+  # a history expansion in the line
+  #Space: magic-space
+#$endif
+
+##-------------------------------------------------------------------
+##-------------------------------------------------------------------
+##-------------------------------------------------------------------
+
+# Use Vi, not Emacs, style editing
+set editing-mode vi
+
+# Show all completions as soon as I press tab, even if there's more than one
+set show-all-if-ambiguous on
+# Ignore case
+set completion-ignore-case on
+# on menu-complete, first display the common prefix, then cycle through the 
+# options when hitting TAB
+menu-complete-display-prefix on
+
+###########################################################
+# Keymaps for when we're in command mode (e.g., after hitting ESC)
+set keymap vi-command
+
+# Insert the arguments from the last command
+"p": "i !!*\r"
+
+# When hitting option-up/option-down, cycle through the previous commands
+# which start with the prefix you've entered, rather than just cycling through
+# the last entered commands.
+# In OS X's Terminal.app preferences, I have 'Use option as meta key' off, and
+# have mapped "option cursor up" to "\033\033[A" and "option cursor down" to 
+# "\033\033[B".
+# Feel free to bind to whatever you want. Delete the first '\e' in the keymap
+# to set plain up/down to do a history search by default.
+#"\e\e[A": history-search-backward
+#"\e\e[B": history-search-forward
+
+###########################################################
+# Keymaps for when we're in insert (i.e., typing stuff in) mode
+set keymap vi-insert
+
+# Pressing tab will list all completions & select the first one. Pressing it 
+# again will cycle through available completions.
+TAB: menu-complete
+# Shift-TAB cycles completions backward
+"\e[Z": menu-complete-backward
+
+# Option-up/option-down should also apply to insert mode
+"\e\e[A": history-search-backward
+"\e\e[B": history-search-forward
+
+# Needed because binding 'p' in command mode above wipes its insert mode
+# function, too. This fixes that, and will insert 'p' when you type 'p'.
+"p": self-insert
+
+
+# Cycle thru completions.
+#"\e/": menu-complete
+
+# escapes clear command line.
+#"\e\e": "\C-a\C-k"
+
+set bell-style visible
+set prefer-visible-bell on
+
+
